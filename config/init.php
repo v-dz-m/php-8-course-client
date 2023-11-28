@@ -10,8 +10,8 @@ define("CACHE", ROOT . "/tmp/cache");
 define("LOGS", ROOT . "/tmp/logs");
 define("CONFIG", ROOT . "/config");
 define("LAYOUT", "ishop");
-define("PATH", "http://sites/course-framework");
-define("ADMIN",  "http://sites/course-framework");
+define("PATH", "http://client.test");
+define("ADMIN",  "http://client.test/admin");
 define("NO_IMAGE",  "uploads/no_image.jpg");
 
 require_once ROOT . "/vendor/autoload.php";

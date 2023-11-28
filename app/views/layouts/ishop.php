@@ -4,10 +4,8 @@ use wfm\View;
 
 /** @var $this View */
 
-?>
+$this->getPart('parts/header');
 
-<?php $this->getPart('parts/header'); ?>
+echo $this->content;
 
-<?= $this->content; ?>
-
-<?php $this->getPart('parts/footer'); ?>
+$this->getPart('parts/footer');
