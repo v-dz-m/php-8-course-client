@@ -1,4 +1,4 @@
-/tmp/logs/
-/.idea/
-/vendor/
-!/vendor/wfm
+tmp/logs/
+.idea/
+vendor/*
+!vendor/wfm/
