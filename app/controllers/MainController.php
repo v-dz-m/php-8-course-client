@@ -11,10 +11,9 @@ class MainController extends AppController
     public function indexAction()
     {
         $slides = R::findAll('slider');
-        $this->set(compact('slides'));
-        /*$names = $this->model->get_names();
-        $spec_name = R::getRow('SELECT * FROM name WHERE id = 2');
-        $this->setMeta('Главная страница', 'Description...', 'keywords...');
-        $this->set(compact('names'));*/
+
+        $products = $this->model->get_hits(1, 6);
+
+        $this->set(compact('slides', 'products'));
     }
 }
