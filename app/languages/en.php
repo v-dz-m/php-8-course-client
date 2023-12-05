@@ -11,7 +11,7 @@ return [
     'tpl_home_breadcrumbs' => '<i class="fas fa-home"></i>',
     'tpl_total_pagination' => 'product(s) from',
 
-    'tpl_cart_title' => 'Basket',
+    'tpl_cart_title' => 'Cart',
     'tpl_cart_photo' => 'Photo',
     'tpl_cart_product' => 'Product',
     'tpl_cart_qty' => 'Qty',
