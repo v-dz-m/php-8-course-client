@@ -1,4 +1,4 @@
-tmp/logs/
+tmp/*
 .idea/
 vendor/*
 !vendor/wfm/
