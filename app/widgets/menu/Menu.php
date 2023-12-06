@@ -2,7 +2,6 @@
 
 namespace app\widgets\menu;
 
-use RedBeanPHP\R;
 use wfm\App;
 use wfm\Cache;
 
@@ -45,10 +44,12 @@ class Menu
         $this->menuHtml = $cache->get("{$this->cacheKey}_{$this->language['code']}");
 
         if (!$this->menuHtml) {
-            $this->data = R::getAssoc("SELECT c.*, cd.* FROM category AS c 
+            /*$this->data = R::getAssoc("SELECT c.*, cd.* FROM category AS c
                         JOIN category_description cd
                         ON c.id = cd.category_id
-                        WHERE cd.language_id = ?", [$this->language['id']]);
+                        WHERE cd.language_id = ?", [$this->language['id']]);*/
+
+            $this->data = App::$app->getProperty("categories_{$this->language['code']}");
             $this->tree = $this->getTree();
             $this->menuHtml = $this->getMenuHtml($this->tree);
             if ($this->cache) {
