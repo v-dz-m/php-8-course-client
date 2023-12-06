@@ -50,7 +50,7 @@ $(function () {
             url: 'cart/clear',
             type: 'GET',
             success: function (res) {
-                showCart(res)
+                showCart(res);
             },
             error: function () {
                 alert('Error!');
@@ -69,7 +69,8 @@ $(function () {
             type: 'GET',
             data: {id: id, qty: qty},
             success: function (res) {
-                showCart(res)
+                showCart(res);
+                $this.find('i').removeClass('fa-shopping-cart').addClass('fa-luggage-cart');
             },
             error: function () {
                 alert('Error!');
