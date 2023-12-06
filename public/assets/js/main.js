@@ -5,6 +5,13 @@ $(function () {
         const myModalEl = document.querySelector('#cart-modal');
         const modal = bootstrap.Modal.getOrCreateInstance(myModalEl);
         modal.show();
+
+        const cartQty = $('.cart-qty').text();
+        if (cartQty) {
+            $('.count-items').text(cartQty);
+        } else {
+            $('.count-items').text('0');
+        }
     }
 
     $('#get-cart').on('click', function (e) {
@@ -14,6 +21,36 @@ $(function () {
             type: 'GET',
             success: function (res) {
                 showCart(res);
+            },
+            error: function () {
+                alert('Error!');
+            }
+        });
+    });
+
+    $('#cart-modal .modal-cart-content').on('click', '.del-item', function (e) {
+        e.preventDefault();
+        const id = $(this).data('id');
+
+        $.ajax({
+            url: 'cart/delete',
+            type: 'GET',
+            data: {id: id},
+            success: function (res) {
+                showCart(res)
+            },
+            error: function () {
+                alert('Error!');
+            }
+        });
+    });
+
+    $('#cart-modal .modal-cart-content').on('click', '#clear-cart', function () {
+        $.ajax({
+            url: 'cart/clear',
+            type: 'GET',
+            success: function (res) {
+                showCart(res)
             },
             error: function () {
                 alert('Error!');
