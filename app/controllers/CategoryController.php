@@ -5,6 +5,7 @@ namespace app\controllers;
 use app\models\Breadcrumbs;
 use app\models\Category;
 use wfm\App;
+use wfm\Pagination;
 
 /** @property Category $model*/
 class CategoryController extends AppController
@@ -22,8 +23,15 @@ class CategoryController extends AppController
         $breadcrumbs = Breadcrumbs::getBreadcrumbs($category['id']);
         $ids = $this->model->getIds($category['id']);
         $ids = !$ids ? $category['id'] : $ids . $category['id'];
-        $products = $this->model->getProducts($ids, $lang);
+
+        $page = abs(get('page')) ?: 1;
+        $perPage = App::$app->getProperty('pagination');
+        $total = $this->model->get_count_products($ids);
+        $pagination = new Pagination($page, $perPage, $total);
+        $start = $pagination->getStart();
+
+        $products = $this->model->getProducts($ids, $lang, $start, $perPage);
         $this->setMeta($category['title'], $category['description'], $category['keywords']);
-        $this->set(compact('products', 'category', 'breadcrumbs'));
+        $this->set(compact('products', 'category', 'breadcrumbs', 'total', 'pagination'));
     }
 }
