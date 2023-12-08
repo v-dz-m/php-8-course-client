@@ -128,4 +128,21 @@ $(function () {
         window.location = PATH + '/language/change?lang=' + lang_code;
     });
 
+    $('.product-card').on('click', '.add-to-wishlist', function(e) {
+        e.preventDefault();
+        const $this = $(this);
+        const id = $this.data('id');
+        $.ajax({
+            url: 'wishlist/add',
+            type: "GET",
+            data: {id: id},
+            success: function (res) {
+                res = JSON.parse(res);
+                console.log(res);
+            },
+            error: function () {
+                alert('Error!');
+            }
+        });
+    })
 });
