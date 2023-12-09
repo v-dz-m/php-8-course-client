@@ -56,7 +56,7 @@ function get($key, $type = 'i')
 function post($key, $type = 's')
 {
     $param = $key;
-    $$param = $_GET[$param] ?? '';
+    $$param = $_POST[$param] ?? '';
     if ($type == 'i') {
         return (int)$$param;
     } elseif ($type == 'f') {
