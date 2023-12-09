@@ -24,7 +24,7 @@ class Page
         $this->run();
     }
 
-    protected function getOptions($options)
+    protected function getOptions($options): void
     {
         foreach ($options as $k => $v) {
             if (property_exists($this, $k)) {
@@ -33,7 +33,7 @@ class Page
         }
     }
 
-    protected function run()
+    protected function run(): void
     {
         $cache = Cache::getInstance();
         $this->menuPageHtml = $cache->get("{$this->cacheKey}_{$this->language['code']}");
@@ -52,7 +52,7 @@ class Page
         $this->output();
     }
 
-    protected function getMenuPageHtml()
+    protected function getMenuPageHtml(): string
     {
         $html = '';
         foreach ($this->data as $k => $v) {
@@ -61,12 +61,11 @@ class Page
         return $html;
     }
 
-    protected function output()
+    protected function output(): void
     {
         echo "<{$this->container} class='{$this->class}'>";
         echo $this->prepend;
         echo $this->menuPageHtml;
         echo "</{$this->container}>";
     }
-
 }
