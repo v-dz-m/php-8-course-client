@@ -25,7 +25,7 @@ class Wishlist extends AppModel
                 }
                 $wishlist[] = $id;
                 $wishlist = implode(',', $wishlist);
-                setcookie('wishlist', $wishlist, time() + 3600 * 24 * 7 * 30, '/');
+                setcookie('wishlist', $wishlist, time() + 3600 * 24 * 30, '/');
             }
         }
     }
@@ -38,8 +38,7 @@ class Wishlist extends AppModel
         }
         if (is_array($wishlist)) {
             $wishlist = array_slice($wishlist, 0, 6);
-            $wishlist = array_map('intval', $wishlist);
-            return $wishlist;
+            return array_map('intval', $wishlist);
         }
         return [];
     }
@@ -53,5 +52,23 @@ class Wishlist extends AppModel
         }
 
         return [];
+    }
+
+    public function delete_from_wishlist($id): bool
+    {
+        $wishlist = self::get_wishlist_ids();
+        $key = array_search($id, $wishlist);
+        if ($key !== false) {
+            unset($wishlist[$key]);
+            if ($wishlist) {
+                $wishlist = implode(',', $wishlist);
+                setcookie('wishlist', $wishlist, time() + 3600 * 24 * 30, '/');
+            } else {
+                setcookie('wishlist', '', time() - 3600, '/');
+            }
+            return true;
+        }
+
+        return false;
     }
 }
