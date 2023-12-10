@@ -24,7 +24,7 @@ return [
     'tpl_cart_empty' => 'Empty cart',
 
     'tpl_login' => 'Login',
-    'tpl_signup' => 'Sign up',
+    'tpl_signup' => 'Signup',
     'tpl_logout' => 'Logout',
     'tpl_cabinet' => 'Cabinet',
 
