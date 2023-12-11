@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\User;
+use wfm\App;
 use wfm\Pagination;
 
 /** @property User $model */
@@ -92,12 +93,30 @@ class UserController extends AppController
             redirect(base_url() . 'user/login');
         }
         $id = get('id');
+
         $order = $this->model->get_user_order($id);
         if (!$order) {
             throw new \Exception('Order not found', 404);
         }
-
         $this->setMeta(___('user_order_title'));
         $this->set(compact('order'));
+    }
+
+    public function filesAction(): void
+    {
+        if (!User::checkAuth()) {
+            redirect(base_url() . 'user/login');
+        }
+        $lang = App::$app->getProperty('language');
+        $page = get('page');
+//        $perPage = App::$app->getProperty('pagination');
+        $perPage = 1;
+        $total = $this->model->get_files_count();
+        $pagination = new Pagination($page, $perPage, $total);
+        $start = $pagination->getStart();
+
+        $files = $this->model->get_user_files($start, $perPage, $lang);
+        $this->setMeta(___('user_files_title'));
+        $this->set(compact('files', 'pagination', 'total'));
     }
 }
