@@ -3,7 +3,6 @@
 namespace app\controllers;
 
 use app\models\User;
-use wfm\App;
 use wfm\Pagination;
 
 /** @property User $model */
@@ -85,5 +84,20 @@ class UserController extends AppController
         $orders = $this->model->get_user_orders($start, $perPage, $_SESSION['user']['id']);
         $this->setMeta(___('user_orders_title'));
         $this->set(compact('orders', 'total', 'pagination'));
+    }
+
+    public function orderAction(): void
+    {
+        if (!User::checkAuth()) {
+            redirect(base_url() . 'user/login');
+        }
+        $id = get('id');
+        $order = $this->model->get_user_order($id);
+        if (!$order) {
+            throw new \Exception('Order not found', 404);
+        }
+
+        $this->setMeta(___('user_order_title'));
+        $this->set(compact('order'));
     }
 }
